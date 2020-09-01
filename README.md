@@ -8,7 +8,4 @@ The repository contains my team's solution to the [5th Makridakis Competitions](
 **_Acknowledgements_**
 ***
 
-**_Acknowledgements_**
-***
-
 Special thanks to my other team members throughout the competition: [Jing](https://www.kaggle.com/jinghuiwong) and [Guan Hoe](https://www.kaggle.com/guanhoe)!
