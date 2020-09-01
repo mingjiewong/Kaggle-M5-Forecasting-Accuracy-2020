@@ -3,7 +3,7 @@
 ***
 The repository contains my team's solution to the [5th Makridakis Competitions](https://www.kaggle.com/c/m5-forecasting-accuracy) (i.e., M5) held on Kaggle. Check out my [profile](https://www.kaggle.com/mwong007)!
 
-![image](http://url/to/img.png)
+![image](https://github.com/mingjiewong/Kaggle-M5-Forecasting-Accuracy-2020/blob/master/Figure2.png)
 
 **_Acknowledgements_**
 ***
