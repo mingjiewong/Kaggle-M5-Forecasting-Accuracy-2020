@@ -5,11 +5,12 @@ The repository contains my team's solution to the [5th Makridakis Competitions](
 
 ![image](https://github.com/mingjiewong/Kaggle-M5-Forecasting-Accuracy-2020/blob/master/Figure2.png)
 
-**_How to Run_**
+**_Getting Started_**
 ***
 Clone the repo:
 ```
-git clone https://github.com/mingjiewong/Kaggle-M5-Forecasting-Accuracy-2020.git && cd Kaggle-M5-Forecasting-Accuracy-2020
+git clone https://github.com/mingjiewong/Kaggle-M5-Forecasting-Accuracy-2020.git
+cd Kaggle-M5-Forecasting-Accuracy-2020
 ```
 
 Download raw data from Kaggle at ```https://www.kaggle.com/c/m5-forecasting-accuracy/data``` and extract it:
