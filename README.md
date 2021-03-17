@@ -5,10 +5,21 @@ The repository contains my team's solution to the [5th Makridakis Competitions](
 
 ![image](https://github.com/mingjiewong/Kaggle-M5-Forecasting-Accuracy-2020/blob/master/Figure2.png)
 
-**_Install Python Requirements_**
+**_How to Run_**
 ***
+Clone the repo:
+```
+git clone https://github.com/mingjiewong/Kaggle-M5-Forecasting-Accuracy-2020.git && cd Kaggle-M5-Forecasting-Accuracy-2020
+```
+
+Install dependencies using **python 3.6+**:
 ```
 pip install -r requirements.txt
+```
+
+A jupyter notebook for visualizing the steps is at ```Kaggle-M5-Forecasting-Accuracy-2020/m5-forecasting-cnn-lstm-deep-learning.ipynb```. To launch notebook:
+```
+jupyter notebook m5-forecasting-cnn-lstm-deep-learning.ipynb
 ```
 
 **_Acknowledgements_**
