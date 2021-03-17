@@ -12,6 +12,13 @@ Clone the repo:
 git clone https://github.com/mingjiewong/Kaggle-M5-Forecasting-Accuracy-2020.git && cd Kaggle-M5-Forecasting-Accuracy-2020
 ```
 
+Download raw data from Kaggle at ```https://www.kaggle.com/c/m5-forecasting-accuracy/data``` and extract it:
+```
+mkdir {path-to-dir}/Kaggle-M5-Forecasting-Accuracy-2020/datasets
+cd {path-to-dir}/Kaggle-M5-Forecasting-Accuracy-2020/datasets
+unzip m5-forecasting-accuracy.zip
+```
+
 Install dependencies using **python 3.6+**:
 ```
 pip install -r requirements.txt
