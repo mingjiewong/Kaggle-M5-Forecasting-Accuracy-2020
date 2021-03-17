@@ -6,11 +6,11 @@ The repository contains my team's solution to the [5th Makridakis Competitions](
 ![image](https://github.com/mingjiewong/Kaggle-M5-Forecasting-Accuracy-2020/blob/master/Figure2.png)
 
 **_Install Python Requirements_**
-'''
+***
+```
 pip install -r requirements.txt
-'''
+```
 
 **_Acknowledgements_**
 ***
-
 Special thanks to my other team members: [Jing](https://www.kaggle.com/jinghuiwong) and [Guan Hoe](https://www.kaggle.com/guanhoe)!
