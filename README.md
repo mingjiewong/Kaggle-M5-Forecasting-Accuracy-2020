@@ -25,6 +25,11 @@ Install dependencies using **python 3.6+**:
 pip install -r requirements.txt
 ```
 
+Run the model (from root of the repo):
+```
+python main.py
+```
+
 A jupyter notebook for visualizing the steps is at ```Kaggle-M5-Forecasting-Accuracy-2020/m5-forecasting-cnn-lstm-deep-learning.ipynb```. To launch notebook:
 ```
 jupyter notebook m5-forecasting-cnn-lstm-deep-learning.ipynb
