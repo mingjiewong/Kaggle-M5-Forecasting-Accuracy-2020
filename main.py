@@ -7,7 +7,7 @@ if __name__ == '__main__':
     calendar_filename = '/datasets/m5-forecasting-accuracy/calendar.csv'
     sample_file = '/datasets/m5-forecasting-accuracy/sample_submission.csv'
 
-    ### Downcast the dataframes to reduce memory usage
+    ### Downcast the dataframes to reduce memory usage for operations
     load = Load(train_sales=train_sales_filename,calendar=calendar_filename)
     train_sales = load.downcast_dtypes()
     calendar = load.calendar
