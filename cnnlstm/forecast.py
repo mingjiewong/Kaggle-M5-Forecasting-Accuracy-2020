@@ -18,7 +18,7 @@ class Config(object):
           metrics (obj): metrics for optimizer
           loss (str): type of loss function
         """
-        self.EPOCHS = 10
+        self.EPOCHS = 150
         self.BATCH_SIZE = 100
 
         # Optimizer Config
