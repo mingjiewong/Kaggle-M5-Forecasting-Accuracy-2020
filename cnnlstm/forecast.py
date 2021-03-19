@@ -113,13 +113,14 @@ class PredictionStep:
         self.timesteps = timesteps
         self.sc = sc
 
-    def run_prediction(self,concat_train_sales,daysBeforeEvent1_valid,daysBeforeEvent2_valid,
+    def run_prediction(self,concat_train_sales,model,daysBeforeEvent1_valid,daysBeforeEvent2_valid,
                        snap_CA_valid,snap_TX_valid,snap_WI_valid):
         """
         Forecast daily sales for 28-days validation period (between day 1913 and 1941).
 
         Args:
           concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
+          model (obj): trained model
           daysBeforeEvent1_valid (dataframe): input daily data of festive events (validation)
           daysBeforeEvent2_valid (dataframe): input daily data of sporting events (validation)
           snap_CA_valid (dataframe): input daily data of SNAP program in California (validation)
@@ -139,7 +140,7 @@ class PredictionStep:
         predictions = []
 
         for j in range(self.timesteps,self.timesteps + 28):
-            predicted_stock_price = cnn_lstm.model.predict(X_test[0,j - self.timesteps:j].reshape(1, self.timesteps, 30495))
+            predicted_stock_price = model.predict(X_test[0,j - self.timesteps:j].reshape(1, self.timesteps, 30495))
 
             testInput = np.column_stack((np.array(predicted_stock_price),
                                          daysBeforeEvent1_valid.loc[1913 + j - self.timesteps],
@@ -154,13 +155,14 @@ class PredictionStep:
 
         return predictions
 
-    def run_prediction_eval(self,concat_train_sales,daysBeforeEvent1_eval,daysBeforeEvent2_eval,snap_CA_eval,
+    def run_prediction_eval(self,concat_train_sales,model,daysBeforeEvent1_eval,daysBeforeEvent2_eval,snap_CA_eval,
                             snap_TX_eval,snap_WI_eval):
         """
         Forecast daily sales for 28-days evaluation period (between day 1941 and 1969).
 
         Args:
           concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
+          model (obj): trained model
           daysBeforeEvent1_eval (dataframe): input daily data of festive events (evaluation)
           daysBeforeEvent2_eval (dataframe): input daily data of sporting events (evaluation)
           snap_CA_eval (dataframe): input daily data of SNAP program in California (evaluation)
@@ -180,7 +182,7 @@ class PredictionStep:
         predictions_eval = []
 
         for j in range(self.timesteps,self.timesteps + 28):
-            predicted_stock_price = cnn_lstm.model.predict(X_eval[0,j - self.timesteps:j].reshape(1, self.timesteps, 30495))
+            predicted_stock_price = model.predict(X_eval[0,j - self.timesteps:j].reshape(1, self.timesteps, 30495))
 
             testInput = np.column_stack((np.array(predicted_stock_price),
                                          daysBeforeEvent1_eval.loc[1941 + j - self.timesteps],
