@@ -37,10 +37,10 @@ if __name__ == '__main__':
     ### Forecast the sales from trained CNN-LSTM model
     pred_step = PredictionStep(sc=minmaxscaler)
 
-    preds = pred_step.run_prediction(concat_train_sales,split.daysBeforeEvent1_valid,split.daysBeforeEvent2_valid,
+    preds = pred_step.run_prediction(concat_train_sales,cnn_lstm.model,split.daysBeforeEvent1_valid,split.daysBeforeEvent2_valid,
                                  split.snap_CA_valid,split.snap_TX_valid,split.snap_WI_valid)
 
-    preds_eval = pred_step.run_prediction_eval(concat_train_sales,split.daysBeforeEvent1_eval,
+    preds_eval = pred_step.run_prediction_eval(concat_train_sales,cnn_lstm.model,split.daysBeforeEvent1_eval,
                                            split.daysBeforeEvent2_eval,split.snap_CA_eval,
                                            split.snap_TX_eval,split.snap_WI_eval)
 
