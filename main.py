@@ -3,9 +3,9 @@ from cnnlstm.forecast import Config, CNNLSTM, PredictionStep
 
 if __name__ == '__main__':
     ### Configure file names
-    train_sales_filename = '/datasets/m5-forecasting-accuracy/sales_train_evaluation.csv'
-    calendar_filename = '/datasets/m5-forecasting-accuracy/calendar.csv'
-    sample_file = '/datasets/m5-forecasting-accuracy/sample_submission.csv'
+    train_sales_filename = './datasets/m5-forecasting-accuracy/sales_train_evaluation.csv'
+    calendar_filename = './datasets/m5-forecasting-accuracy/calendar.csv'
+    sample_file = './datasets/m5-forecasting-accuracy/sample_submission.csv'
 
     ### Downcast the dataframes to reduce memory usage for operations
     load = Load(train_sales=train_sales_filename,calendar=calendar_filename)
