@@ -1,9 +1,8 @@
 import tensorflow as tf
 import pandas as pd
 import numpy as np
-from tensorflow import keras
-from keras.models import Sequential
-from keras.layers import Dense, LSTM, Dropout
+from tf.keras.models import Sequential
+from tf.keras.layers import Dense, LSTM, Dropout
 from sklearn.preprocessing import MinMaxScaler
 
 tf.random.set_seed(51)
