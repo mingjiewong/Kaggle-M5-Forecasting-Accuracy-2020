@@ -16,8 +16,8 @@ class Config(object):
         Attributes:
           EPOCHS (int): number of epochs
           BATCH_SIZE (int): batch size
-          optimizer (obj): type of optimizer
-          metrics (obj): type of metrics for optimizer
+          optimizer (obj): optimizer
+          metrics (obj): metrics for optimizer
           loss (str): type of loss function
         """
         self.EPOCHS = 10
@@ -79,18 +79,18 @@ class CNNLSTM:
 
     def compile_model(self, loss, optimizer, metrics):
         """
-        Compile the model.
+        Compile model.
 
         Args:
           loss (str): type of loss function
-          optimizer (obj): type of metrics for optimizer
-          metrics (obj): type of optimizer
+          optimizer (obj): optimizer
+          metrics (obj): metrics for optimizer
         """
         self.model.compile(loss=loss, optimizer=optimizer, metrics=[metrics])
 
     def run_model(self, epochs, batch_size):
         """
-        Run the model.
+        Run model.
 
         Args:
           epochs (int): number of epochs
@@ -102,15 +102,15 @@ class CNNLSTM:
 class PredictionStep:
     def __init__(self,timesteps=7,sc=MinMaxScaler(feature_range=(0,1))):
         """
-        Load the parameters for the prediction step.
+        Load the parameters for sales forecasting.
 
         Args:
           timesteps (int): number of timesteps
-          sc (obj): type of scaler for standardizing features
+          sc (obj): scaler
 
         Attributes:
           timesteps (int): number of timesteps
-          sc (obj): type of scaler for standardizing features
+          sc (obj): scaler
         """
         self.timesteps = timesteps
         self.sc = sc
@@ -118,15 +118,19 @@ class PredictionStep:
     def run_prediction(self,concat_train_sales,daysBeforeEvent1_valid,daysBeforeEvent2_valid,
                        snap_CA_valid,snap_TX_valid,snap_WI_valid):
         """
-        Forecast daily sales for 28-days validation period (between 1913th and 1941st day).
+        Forecast daily sales for 28-days validation period (between day 1913 and 1941).
 
         Args:
-          concat_train_sales (dataframe): input daily data of sales
-          daysBeforeEvent1_valid (dataframe): input daily data of festive events
-          daysBeforeEvent2_valid (dataframe): input daily data of sporting events
-          snap_CA_valid (dataframe): input daily data of SNAP program in California
-          snap_TX_valid (dataframe): input daily data of SNAP program in Texas
-          snap_WI_valid (dataframe): input daily data of SNAP program in Wisconsin
+          concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
+          daysBeforeEvent1_valid (dataframe): input daily data of festive events (validation)
+          daysBeforeEvent2_valid (dataframe): input daily data of sporting events (validation)
+          snap_CA_valid (dataframe): input daily data of SNAP program in California (validation)
+          snap_TX_valid (dataframe): input daily data of SNAP program in Texas (validation)
+          snap_WI_valid (dataframe): input daily data of SNAP program in Wisconsin (validation)
+
+        Returns:
+          predictions (arr): predicted sales for validation period with dimensions
+            [n_valid_days]
         """
         inputs = concat_train_sales[-self.timesteps*2:-self.timesteps]
         inputs = self.sc.transform(inputs)
@@ -155,15 +159,19 @@ class PredictionStep:
     def run_prediction_eval(self,concat_train_sales,daysBeforeEvent1_eval,daysBeforeEvent2_eval,snap_CA_eval,
                             snap_TX_eval,snap_WI_eval):
         """
-        Forecast daily sales for 28-days evaluation period (between 1941st and 1969th day).
+        Forecast daily sales for 28-days evaluation period (between day 1941 and 1969).
 
         Args:
-          concat_train_sales (dataframe): input daily data of sales
-          daysBeforeEvent1_eval (dataframe): input daily data of festive events
-          daysBeforeEvent2_eval (dataframe): input daily data of sporting events
-          snap_CA_eval (dataframe): input daily data of SNAP program in California
-          snap_TX_eval (dataframe): input daily data of SNAP program in Texas
-          snap_WI_eval (dataframe): input daily data of SNAP program in Wisconsin
+          concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
+          daysBeforeEvent1_eval (dataframe): input daily data of festive events (evaluation)
+          daysBeforeEvent2_eval (dataframe): input daily data of sporting events (evaluation)
+          snap_CA_eval (dataframe): input daily data of SNAP program in California (evaluation)
+          snap_TX_eval (dataframe): input daily data of SNAP program in Texas (evaluation)
+          snap_WI_eval (dataframe): input daily data of SNAP program in Wisconsin (evaluation)
+
+        Returns:
+          predictions_eval (arr): predicted sales for evaluation period with dimensions
+            [n_eval_days]
         """
         inputs_eval = concat_train_sales[-self.timesteps:]
         inputs_eval = self.sc.transform(inputs_eval)
