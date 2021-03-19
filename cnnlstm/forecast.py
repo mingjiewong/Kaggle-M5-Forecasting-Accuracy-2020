@@ -10,7 +10,16 @@ np.random.seed(51)
 
 class Config(object):
     def __init__(self):
-        # Model Fit Setting
+        """
+        Load CNN-LSTM model parameters.
+
+        Attributes:
+          EPOCHS (int): number of epochs
+          BATCH_SIZE (int): batch size
+          optimizer (obj): type of optimizer
+          metrics (obj): type of metrics for optimizer
+          loss (str): type of loss function
+        """
         self.EPOCHS = 10
         self.BATCH_SIZE = 100
 
@@ -21,12 +30,32 @@ class Config(object):
 
 class CNNLSTM:
     def __init__(self, X_train, y_train):
+        """
+        Load the training and test inputs and input shape of training to CNN-LSTM model.
+
+        Args:
+          X_train (arr): training inputs with dimensions
+            [n_timeseries , n_timesteps, n_products]
+          y_train (arr): test inputs with dimensions
+            [n_timeseries, n_pred_products]
+
+        Attributes:
+          X_train (arr): training inputs with dimensions
+            [n_timeseries , n_timesteps, n_products]
+          y_train (arr): test inputs with dimensions
+            [n_timeseries, n_pred_products]
+          n_timesteps (int): number of timesteps
+          n_products (int): number of features
+        """
         self.X_train = X_train
         self.y_train = y_train
         self.n_timesteps = X_train.shape[1]
         self.n_products = X_train.shape[2]
 
     def gen_model(self):
+        """
+        Load CNN-LSTM model configurations.
+        """
         self.model = tf.keras.models.Sequential([
             tf.keras.layers.Conv1D(filters=128, kernel_size=3,strides=1, padding="causal", activation="relu",
                                    input_shape=(self.n_timesteps, self.n_products)),
@@ -43,22 +72,62 @@ class CNNLSTM:
         ])
 
     def gen_model_summary(self):
+        """
+        Generate model summary.
+        """
         self.model.summary()
 
     def compile_model(self, loss, optimizer, metrics):
+        """
+        Compile the model.
+
+        Args:
+          loss (str): type of loss function
+          optimizer (obj): type of metrics for optimizer
+          metrics (obj): type of optimizer
+        """
         self.model.compile(loss=loss, optimizer=optimizer, metrics=[metrics])
 
     def run_model(self, epochs, batch_size):
+        """
+        Run the model.
+
+        Args:
+          epochs (int): number of epochs
+          batch_size (int): batch size
+        """
         self.model.fit(self.X_train, self.y_train, epochs = epochs, batch_size = batch_size)
 
 
 class PredictionStep:
     def __init__(self,timesteps=7,sc=MinMaxScaler(feature_range=(0,1))):
+        """
+        Load the parameters for the prediction step.
+
+        Args:
+          timesteps (int): number of timesteps
+          sc (obj): type of scaler for standardizing features
+
+        Attributes:
+          timesteps (int): number of timesteps
+          sc (obj): type of scaler for standardizing features
+        """
         self.timesteps = timesteps
         self.sc = sc
 
     def run_prediction(self,concat_train_sales,daysBeforeEvent1_valid,daysBeforeEvent2_valid,
                        snap_CA_valid,snap_TX_valid,snap_WI_valid):
+        """
+        Forecast daily sales for 28-days validation period (between 1913th and 1941st day).
+
+        Args:
+          concat_train_sales (dataframe): input daily data of sales
+          daysBeforeEvent1_valid (dataframe): input daily data of festive events
+          daysBeforeEvent2_valid (dataframe): input daily data of sporting events
+          snap_CA_valid (dataframe): input daily data of SNAP program in California
+          snap_TX_valid (dataframe): input daily data of SNAP program in Texas
+          snap_WI_valid (dataframe): input daily data of SNAP program in Wisconsin
+        """
         inputs = concat_train_sales[-self.timesteps*2:-self.timesteps]
         inputs = self.sc.transform(inputs)
 
@@ -85,6 +154,17 @@ class PredictionStep:
 
     def run_prediction_eval(self,concat_train_sales,daysBeforeEvent1_eval,daysBeforeEvent2_eval,snap_CA_eval,
                             snap_TX_eval,snap_WI_eval):
+        """
+        Forecast daily sales for 28-days evaluation period (between 1941st and 1969th day).
+
+        Args:
+          concat_train_sales (dataframe): input daily data of sales
+          daysBeforeEvent1_eval (dataframe): input daily data of festive events
+          daysBeforeEvent2_eval (dataframe): input daily data of sporting events
+          snap_CA_eval (dataframe): input daily data of SNAP program in California
+          snap_TX_eval (dataframe): input daily data of SNAP program in Texas
+          snap_WI_eval (dataframe): input daily data of SNAP program in Wisconsin
+        """
         inputs_eval = concat_train_sales[-self.timesteps:]
         inputs_eval = self.sc.transform(inputs_eval)
 
@@ -110,6 +190,16 @@ class PredictionStep:
         return predictions_eval
 
     def gen_csv(self,predictions,predictions_eval,sample_file):
+        """
+        Generate the csv file for forecasted sales.
+
+        Args:
+          predictions (arr): predicted sales for validation period with dimensions
+            [n_valid_days]
+          predictions_eval (arr): predicted sales for evaluation period with dimensions
+            [n_eval_days]
+          sample_file (str): sample file path
+        """
         submission = pd.DataFrame(data=np.array(predictions).reshape(28,30490))
         submission = submission.T
 
