@@ -206,7 +206,7 @@ class PredictionStep:
             [n_valid_days]
           predictions_eval (arr): predicted sales for evaluation period with dimensions
             [n_eval_days]
-          sample_file (str): sample file path
+          sample_file (str): submission file path
         """
         submission = pd.DataFrame(data=np.array(predictions).reshape(28,30490))
         submission = submission.T
