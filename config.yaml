@@ -1,0 +1,20 @@
+#===================================
+# General Params for CNN-LSTM
+#===================================
+EPOCHS: 10
+BATCH_SIZE: 100
+
+#===================================
+# General Params for Loss Function
+#===================================
+loss: 'mse'
+
+#===================================
+# CNN (Conv1D) Model Params
+#===================================
+filters_1: 128
+filters_2: 64
+kernel_size: 3
+strides: 1
+padding: 'causal'
+activation: 'relu'
