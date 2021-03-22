@@ -205,7 +205,6 @@ class ScalingTrainSales:
           config (dict): parameter configurations from config.yaml
         """
         self.concat_train_sales = concat_train_sales
-        self.timesteps = timesteps
         self.feature_range = feature_range
         self.X_train = []
         self.y_train = []
