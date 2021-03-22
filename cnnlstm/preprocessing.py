@@ -185,7 +185,7 @@ class SplitDataset:
         return self.concat_train_sales
 
 class ScalingTrainSales:
-    def __init__(self,concat_train_sales,feature_range=(0,1),startDay=350, config_path='../config.yaml'):
+    def __init__(self,concat_train_sales,feature_range=(0,1),startDay=350, config_path=''):
         """
         Load parameters for scaling features in input data.
 
