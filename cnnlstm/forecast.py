@@ -99,12 +99,13 @@ class PredictionStep:
         Load the parameters for sales forecasting.
 
         Args:
-          config (dict): parameter configurations from config.yaml
+          config_path (str): file path for config.yaml
           sc (obj): scaler
 
         Attributes:
           timesteps (int): number of timesteps
           sc (obj): scaler
+          config (dict): parameter configurations from config.yaml
         """
         self.config = Config(config_path)
         self.timesteps = self.config.timesteps
