@@ -6,6 +6,7 @@ if __name__ == '__main__':
     train_sales_filename = './datasets/m5-forecasting-accuracy/sales_train_evaluation.csv'
     calendar_filename = './datasets/m5-forecasting-accuracy/calendar.csv'
     sample_file = './datasets/m5-forecasting-accuracy/sample_submission.csv'
+    yaml_file = './config.yaml'
 
     ### Downcast the dataframes to reduce memory usage for operations
     load = Load(train_sales=train_sales_filename,calendar=calendar_filename)
@@ -22,20 +23,20 @@ if __name__ == '__main__':
     concat_train_sales = split.concatenate()
 
     ### Scale sales using Min-Max scaler to the range of 0 and 1
-    scaling_train_sales = ScalingTrainSales(concat_train_sales)
+    scaling_train_sales = ScalingTrainSales(concat_train_sales, config_path=yaml_file)
     X_train, y_train, minmaxscaler = scaling_train_sales.gen_train_data()
 
     ### Configure the CNN-LSTM model settings
     optcfg = OptimizerConfig()
 
     ### Run the CNN-LSTM model
-    cnn_lstm = CNNLSTM(X_train, y_train)
+    cnn_lstm = CNNLSTM(X_train=X_train, y_train=y_train, config_path=yaml_file)
     cnn_lstm.gen_model()
     cnn_lstm.compile_model(loss=optcfg.loss, optimizer=optcfg.optimizer, metrics=optcfg.metrics)
     cnn_lstm.run_model()
 
     ### Forecast the sales from trained CNN-LSTM model
-    pred_step = PredictionStep(sc=minmaxscaler)
+    pred_step = PredictionStep(sc=minmaxscaler, config_path=yaml_file)
 
     preds = pred_step.run_prediction(concat_train_sales,cnn_lstm.model,split.daysBeforeEvent1_valid,split.daysBeforeEvent2_valid,
                                  split.snap_CA_valid,split.snap_TX_valid,split.snap_WI_valid)
