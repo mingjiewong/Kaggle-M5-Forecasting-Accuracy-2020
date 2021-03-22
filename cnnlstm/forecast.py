@@ -2,24 +2,21 @@ import tensorflow as tf
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
+from data_processing.helpers import Config
 
 tf.random.set_seed(51)
 np.random.seed(51)
 
-class Config(object):
+class OptimizerConfig(object):
     def __init__(self):
         """
-        Load CNN-LSTM model parameters.
+        Load optimizer parameters.
 
         Attributes:
-          EPOCHS (int): number of epochs
-          BATCH_SIZE (int): batch size
           optimizer (obj): optimizer
-          metrics (obj): metrics for optimizer
-          loss (str): type of loss function
+          metrics (obj): metrics
+          loss (str): loss function
         """
-        self.EPOCHS = 150
-        self.BATCH_SIZE = 100
 
         # Optimizer Config
         self.optimizer = tf.keras.optimizers.Adam(clipvalue=0.5)
@@ -27,7 +24,7 @@ class Config(object):
         self.loss = 'mse'
 
 class CNNLSTM:
-    def __init__(self, X_train, y_train):
+    def __init__(self, X_train, y_train, config_path='config.yaml'):
         """
         Load the training and test inputs and input shape of training to CNN-LSTM model.
 
@@ -44,21 +41,23 @@ class CNNLSTM:
             [n_timeseries, n_pred_products]
           n_timesteps (int): number of timesteps
           n_products (int): number of features
+          config (dict): CNN-LSTM model parameters
         """
         self.X_train = X_train
         self.y_train = y_train
         self.n_timesteps = X_train.shape[1]
         self.n_products = X_train.shape[2]
+        self.config = Config(config_path)
 
     def gen_model(self):
         """
         Load CNN-LSTM model configurations.
         """
         self.model = tf.keras.models.Sequential([
-            tf.keras.layers.Conv1D(filters=128, kernel_size=3,strides=1, padding="causal", activation="relu",
+            tf.keras.layers.Conv1D(filters=self.config.filters_1, kernel_size=self.config.kernel_size, strides=self.config.strides, padding=self.config.padding, activation=self.config.activation,
                                    input_shape=(self.n_timesteps, self.n_products)),
             tf.keras.layers.MaxPooling1D(),
-            tf.keras.layers.Conv1D(filters=64, kernel_size=3, strides=1, activation='relu', padding="causal"),
+            tf.keras.layers.Conv1D(filters=self.config.filters_2, kernel_size=self.config.kernel_size, strides=self.config.strides, padding=self.config.padding, activation=self.config.activation),
             tf.keras.layers.MaxPooling1D(),
             tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(512, return_sequences=True)),
             tf.keras.layers.BatchNormalization(),
@@ -86,7 +85,7 @@ class CNNLSTM:
         """
         self.model.compile(loss=loss, optimizer=optimizer, metrics=[metrics])
 
-    def run_model(self, epochs, batch_size):
+    def run_model(self):
         """
         Run model.
 
@@ -94,7 +93,7 @@ class CNNLSTM:
           epochs (int): number of epochs
           batch_size (int): batch size
         """
-        self.model.fit(self.X_train, self.y_train, epochs = epochs, batch_size = batch_size)
+        self.model.fit(self.X_train, self.y_train, epochs = self.config.EPOCHS, batch_size = self.config.BATCH_SIZE)
 
 
 class PredictionStep:
