@@ -8,11 +8,16 @@ BATCH_SIZE: 100
 # CNN (Conv1D) Model Params
 #===================================
 filters_1: 128
+kernel_size_1: 3
+strides_1: 1
+padding_1: 'causal'
+activation_1: 'relu'
+
 filters_2: 64
-kernel_size: 3
-strides: 1
-padding: 'causal'
-activation: 'relu'
+kernel_size_2: 3
+strides_2: 1
+padding_2: 'causal'
+activation_2: 'relu'
 
 #===================================
 # Number of timesteps
