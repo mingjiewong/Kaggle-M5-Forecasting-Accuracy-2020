@@ -22,4 +22,4 @@ activation_2: 'relu'
 #===================================
 # Number of timesteps
 #===================================
-timesteps: 7
+timesteps: 8
