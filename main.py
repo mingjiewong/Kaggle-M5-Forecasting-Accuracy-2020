@@ -1,5 +1,5 @@
 from cnnlstm.preprocessing import Load, Preprocess, SplitDataset, ScalingTrainSales
-from cnnlstm.forecast import Config, CNNLSTM, PredictionStep
+from cnnlstm.forecast import OptimizerConfig, CNNLSTM, PredictionStep
 
 if __name__ == '__main__':
     ### Configure file names
