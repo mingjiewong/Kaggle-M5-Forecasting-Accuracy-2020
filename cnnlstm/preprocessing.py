@@ -197,12 +197,12 @@ class ScalingTrainSales:
 
         Attributes:
           concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
-          timesteps (int): number of timesteps
           feature_range ((int, int)): the scaling range
           X_train (arr): training inputs
           y_train (arr): test inputs
           startDay (int): start day
           config (dict): parameter configurations from config.yaml
+          timesteps (int): number of timesteps
         """
         self.concat_train_sales = concat_train_sales
         self.feature_range = feature_range
