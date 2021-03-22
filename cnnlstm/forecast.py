@@ -24,7 +24,7 @@ class OptimizerConfig(object):
         self.loss = 'mse'
 
 class CNNLSTM:
-    def __init__(self, X_train, y_train, config_path='./config.yaml'):
+    def __init__(self, X_train, y_train, config_path='../config.yaml'):
         """
         Load the training and test inputs and input shape of training to CNN-LSTM model.
 
@@ -94,7 +94,7 @@ class CNNLSTM:
 
 
 class PredictionStep:
-    def __init__(self,sc=MinMaxScaler(feature_range=(0,1)), config_path='./config.yaml'):
+    def __init__(self,sc=MinMaxScaler(feature_range=(0,1)), config_path='../config.yaml'):
         """
         Load the parameters for sales forecasting.
 
