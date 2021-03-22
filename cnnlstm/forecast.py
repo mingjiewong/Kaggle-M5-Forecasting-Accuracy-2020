@@ -52,7 +52,10 @@ class CNNLSTM:
 
     def gen_model(self):
         """
-        Load CNN-LSTM model configurations.
+        Load model configurations.
+
+        Attributes:
+          model (obj): CNN-LSTM model
         """
         self.model = tf.keras.models.Sequential([
             tf.keras.layers.Conv1D(filters=self.config.filters_1, kernel_size=self.config.kernel_size_1, strides=self.config.strides_1, padding=self.config.padding_1, activation=self.config.activation_1,
@@ -72,6 +75,9 @@ class CNNLSTM:
     def gen_model_summary(self):
         """
         Generate model summary.
+
+        Attributes:
+          model (obj): CNN-LSTM model
         """
         self.model.summary()
 
@@ -83,12 +89,18 @@ class CNNLSTM:
           loss (str): type of loss function
           optimizer (obj): optimizer
           metrics (obj): metrics for optimizer
+
+        Attributes:
+          model (obj): CNN-LSTM model
         """
         self.model.compile(loss=loss, optimizer=optimizer, metrics=[metrics])
 
     def run_model(self):
         """
         Run model.
+
+        Attributes:
+          model (obj): CNN-LSTM model
         """
         self.model.fit(self.X_train, self.y_train, epochs = self.config.EPOCHS, batch_size = self.config.BATCH_SIZE)
 
@@ -99,13 +111,13 @@ class PredictionStep:
         Load the parameters for sales forecasting.
 
         Args:
-          config_path (str): file path for config.yaml
           sc (obj): scaler
+          config_path (str): file path for config.yaml
 
         Attributes:
+          config (dict): parameter configurations from config.yaml
           timesteps (int): number of timesteps
           sc (obj): scaler
-          config (dict): parameter configurations from config.yaml
         """
         self.config = Config(config_path)
         self.timesteps = self.config.timesteps
