@@ -55,10 +55,10 @@ class CNNLSTM:
         Load CNN-LSTM model configurations.
         """
         self.model = tf.keras.models.Sequential([
-            tf.keras.layers.Conv1D(filters=self.config.filters_1, kernel_size=self.config.kernel_size, strides=self.config.strides, padding=self.config.padding, activation=self.config.activation,
+            tf.keras.layers.Conv1D(filters=self.config.filters_1, kernel_size=self.config.kernel_size_1, strides=self.config.strides_1, padding=self.config.padding_1, activation=self.config.activation_1,
                                    input_shape=(self.n_timesteps, self.n_products)),
             tf.keras.layers.MaxPooling1D(),
-            tf.keras.layers.Conv1D(filters=self.config.filters_2, kernel_size=self.config.kernel_size, strides=self.config.strides, padding=self.config.padding, activation=self.config.activation),
+            tf.keras.layers.Conv1D(filters=self.config.filters_2, kernel_size=self.config.kernel_size_2, strides=self.config.strides_2, padding=self.config.padding_2, activation=self.config.activation_2),
             tf.keras.layers.MaxPooling1D(),
             tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(512, return_sequences=True)),
             tf.keras.layers.BatchNormalization(),
