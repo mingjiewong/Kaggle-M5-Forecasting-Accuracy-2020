@@ -24,7 +24,7 @@ class OptimizerConfig(object):
         self.loss = 'mse'
 
 class CNNLSTM:
-    def __init__(self, X_train, y_train, config_path='config.yaml'):
+    def __init__(self, X_train, y_train, config_path='./config.yaml'):
         """
         Load the training and test inputs and input shape of training to CNN-LSTM model.
 
@@ -33,6 +33,7 @@ class CNNLSTM:
             [n_timeseries , n_timesteps, n_products]
           y_train (arr): test inputs with dimensions
             [n_timeseries, n_pred_products]
+          config_path (str): file path for config.yaml
 
         Attributes:
           X_train (arr): training inputs with dimensions
@@ -88,16 +89,12 @@ class CNNLSTM:
     def run_model(self):
         """
         Run model.
-
-        Args:
-          epochs (int): number of epochs
-          batch_size (int): batch size
         """
         self.model.fit(self.X_train, self.y_train, epochs = self.config.EPOCHS, batch_size = self.config.BATCH_SIZE)
 
 
 class PredictionStep:
-    def __init__(self,timesteps=7,sc=MinMaxScaler(feature_range=(0,1))):
+    def __init__(self,sc=MinMaxScaler(feature_range=(0,1)), config_path='./config.yaml'):
         """
         Load the parameters for sales forecasting.
 
@@ -109,7 +106,8 @@ class PredictionStep:
           timesteps (int): number of timesteps
           sc (obj): scaler
         """
-        self.timesteps = timesteps
+        self.config = Config(config_path)
+        self.timesteps = self.config.timesteps
         self.sc = sc
 
     def run_prediction(self,concat_train_sales,model,daysBeforeEvent1_valid,daysBeforeEvent2_valid,
