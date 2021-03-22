@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import os
 from sklearn.preprocessing import MinMaxScaler
+from data_processing.helpers import Config
 
 class Load:
     def __init__(self,train_sales='',calendar=''):
@@ -184,15 +185,15 @@ class SplitDataset:
         return self.concat_train_sales
 
 class ScalingTrainSales:
-    def __init__(self,concat_train_sales,timesteps=7,feature_range=(0,1),startDay=350):
+    def __init__(self,concat_train_sales,feature_range=(0,1),startDay=350, config_path='./config.yaml'):
         """
         Load parameters for scaling features in input data.
 
         Args:
           concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
-          timesteps (int): number of timesteps
           feature_range ((int, int)): the scaling range
           startDay (int): start day
+          config_path (str): file path for config.yaml
 
         Attributes:
           concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
@@ -201,7 +202,7 @@ class ScalingTrainSales:
           X_train (arr): training inputs
           y_train (arr): test inputs
           startDay (int): start day
-
+          config (dict): parameter configurations from config.yaml
         """
         self.concat_train_sales = concat_train_sales
         self.timesteps = timesteps
@@ -209,6 +210,8 @@ class ScalingTrainSales:
         self.X_train = []
         self.y_train = []
         self.startDay = startDay
+        self.config = Config(config_path)
+        self.timesteps = self.config.timesteps
 
     def gen_train_data(self):
         """
