@@ -42,7 +42,7 @@ class CNNLSTM:
             [n_timeseries, n_pred_products]
           n_timesteps (int): number of timesteps
           n_products (int): number of features
-          config (dict): CNN-LSTM model parameters
+          config (dict): parameter configurations from config.yaml
         """
         self.X_train = X_train
         self.y_train = y_train
@@ -99,7 +99,7 @@ class PredictionStep:
         Load the parameters for sales forecasting.
 
         Args:
-          timesteps (int): number of timesteps
+          config (dict): parameter configurations from config.yaml
           sc (obj): scaler
 
         Attributes:
