@@ -26,13 +26,13 @@ if __name__ == '__main__':
     X_train, y_train, minmaxscaler = scaling_train_sales.gen_train_data()
 
     ### Configure the CNN-LSTM model settings
-    cfg = Config()
+    optcfg = OptimizerConfig()
 
     ### Run the CNN-LSTM model
     cnn_lstm = CNNLSTM(X_train, y_train)
     cnn_lstm.gen_model()
-    cnn_lstm.compile_model(loss=cfg.loss, optimizer=cfg.optimizer, metrics=cfg.metrics)
-    cnn_lstm.run_model(epochs=cfg.EPOCHS, batch_size=cfg.BATCH_SIZE)
+    cnn_lstm.compile_model(loss=optcfg.loss, optimizer=optcfg.optimizer, metrics=optcfg.metrics)
+    cnn_lstm.run_model()
 
     ### Forecast the sales from trained CNN-LSTM model
     pred_step = PredictionStep(sc=minmaxscaler)
