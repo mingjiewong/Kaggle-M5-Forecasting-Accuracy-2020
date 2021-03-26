@@ -30,7 +30,7 @@ class Load:
         Downcast daily sales input data to reduce memory usage.
 
         Returns:
-          train_sales (dataframe): downcasted daily sales input data
+          dataframe: downcasted daily sales input data
         """
         self.train_sales[self.float_cols] = self.train_sales[self.float_cols].astype(np.float32)
         self.train_sales[self.int_cols] = self.train_sales[self.int_cols].astype(np.int16)
@@ -72,11 +72,11 @@ class Preprocess:
         Label days with festive or sporting events, SNAP programs in California, Texas or Wisconsin.
 
         Returns:
-          daysBeforeEvent1 (dataframe): input daily data of festive events
-          daysBeforeEvent2 (dataframe): input daily data of sporting events
-          snap_CA (dataframe): input daily data of SNAP program in California
-          snap_TX (dataframe): input daily data of SNAP program in Texas
-          snap_WI (dataframe): input daily data of SNAP program in Wisconsin
+          dataframe: input daily data of festive events
+          dataframe: input daily data of sporting events
+          dataframe: input daily data of SNAP program in California
+          dataframe: input daily data of SNAP program in Texas
+          dataframe: input daily data of SNAP program in Wisconsin
         """
         for x,y in self.calendar.iterrows():
             if((pd.isnull(self.calendar["event_name_1"][x])) == False):
@@ -160,7 +160,7 @@ class SplitDataset:
         Generate a daily sales input data with the presence of events and SNAP program at day level.
 
         Returns:
-          concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
+          dataframe: input daily data of sales, presence of events and SNAP program
         """
         #Before concatanation with our main data "dt", indexes are made same and column name is changed to "oneDayBeforeEvent"
         self.daysBeforeEvent1_train.columns = ["oneDayBeforeEvent1"]
@@ -217,11 +217,11 @@ class ScalingTrainSales:
         Generate training dataset using Min-Max scaler.
 
         Returns:
-          X_train (arr): training inputs with dimensions
+          arr: training inputs with dimensions
             [n_timeseries, n_timesteps, n_features]
-          y_train (arr): test inputs with dimensions
+          arr: test inputs with dimensions
             [n_timeseries, n_pred_products]
-          sc (obj): scaler
+          obj: scaler
         """
         sc = MinMaxScaler(feature_range=self.feature_range)
         train_sales_scaled = sc.fit_transform(self.concat_train_sales)
