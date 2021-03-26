@@ -29,6 +29,9 @@ class Load:
         """
         Downcast daily sales input data to reduce memory usage.
 
+        Attributes:
+          train_sales (dataframe): downcasted daily sales input data
+
         Returns:
           dataframe: downcasted daily sales input data
         """
@@ -70,6 +73,13 @@ class Preprocess:
     def label_calendar(self):
         """
         Label days with festive or sporting events, SNAP programs in California, Texas or Wisconsin.
+
+        Attributes:
+          daysBeforeEvent1 (dataframe): input daily data of festive events
+          daysBeforeEvent2 (dataframe): input daily data of sporting events
+          snap_CA (dataframe): input daily data of SNAP program in California
+          snap_TX (dataframe): input daily data of SNAP program in Texas
+          snap_WI (dataframe): input daily data of SNAP program in Wisconsin
 
         Returns:
           dataframe: input daily data of festive events
@@ -215,6 +225,12 @@ class ScalingTrainSales:
     def gen_train_data(self):
         """
         Generate training dataset using Min-Max scaler.
+
+        Attributes:
+          X_train (arr): training inputs with dimensions
+            [n_timeseries, n_timesteps, n_features]
+          y_train (arr): test inputs with dimensions
+            [n_timeseries, n_pred_products]
 
         Returns:
           arr: training inputs with dimensions
