@@ -169,6 +169,9 @@ class SplitDataset:
         """
         Generate a daily sales input data with the presence of events and SNAP program at day level.
 
+        Attributes:
+          concat_train_sales (dataframe): input daily data of sales, presence of events and SNAP program
+
         Returns:
           dataframe: input daily data of sales, presence of events and SNAP program
         """
