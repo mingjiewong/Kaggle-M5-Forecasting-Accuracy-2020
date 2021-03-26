@@ -30,11 +30,6 @@ Run the model (from root of the repo):
 python main.py
 ```
 
-A jupyter notebook for visualizing the steps is ```Kaggle-M5-Forecasting-Accuracy-2020/m5-forecasting-cnn-lstm-deep-learning.ipynb```. To launch notebook:
-```
-jupyter notebook m5-forecasting-cnn-lstm-deep-learning.ipynb
-```
-
 **_Acknowledgements_**
 ***
 Special thanks to my other team members: [Jing](https://www.kaggle.com/jinghuiwong) and [Guan Hoe](https://www.kaggle.com/guanhoe)!
