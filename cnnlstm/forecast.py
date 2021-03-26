@@ -138,7 +138,7 @@ class PredictionStep:
           snap_WI_valid (dataframe): input daily data of SNAP program in Wisconsin (validation)
 
         Returns:
-          predictions (arr): predicted sales for validation period with dimensions
+          arr: predicted sales for validation period with dimensions
             [n_valid_days]
         """
         inputs = concat_train_sales[-self.timesteps*2:-self.timesteps]
@@ -180,7 +180,7 @@ class PredictionStep:
           snap_WI_eval (dataframe): input daily data of SNAP program in Wisconsin (evaluation)
 
         Returns:
-          predictions_eval (arr): predicted sales for evaluation period with dimensions
+          arr: predicted sales for evaluation period with dimensions
             [n_eval_days]
         """
         inputs_eval = concat_train_sales[-self.timesteps:]
